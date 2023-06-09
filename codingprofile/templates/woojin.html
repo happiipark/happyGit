@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <title>코딩프로필 - 조우진</title>
+
+    <meta property="og:title" content="코딩 프로필" />
+    <meta property="og:description" content="조우진" />
+    <meta property="og:image" content="https://drive.google.com/uc?id=156cEeiEXWM2XgPSRI3lBKWe4K1Bro_0Q" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
+        rel="stylesheet" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/styles/stylewoojin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            font-family: "Gowun Dodum", sans-serif;
+        }
+    </style>
+
+    <!--javascript-->
+    <script src="static/js/main.js"></script>
+    <script>
+        var page = 1; //페이지 전역변수 선언 (스크롤 페이지와 사이드바 페이지 통일 위함)
+        $(document).ready(function () {
+            // 섹션 이동을 위한 마우스 휠 이벤트 제거
+            wheel_event()
+            show_comment()
+        });
+
+
+
+        function wheel_event() {
+            window.addEventListener("wheel", function (e) {
+                e.preventDefault();
+            }, { passive: false });
+
+            var $html = $("html");
+
+            var lastPage = $(".section").length;
+
+            console.log("페이지수 :" + lastPage)
+            $html.animate({ scrollTop: 0 }, 10);
+
+            $(window).on("wheel", function (e) {
+
+                if ($html.is(":animated")) return;
+
+                if (e.originalEvent.deltaY > 0) {
+                    if (page == lastPage) return;
+
+                    page++;
+                } else if (e.originalEvent.deltaY < 0) {
+                    if (page == 1) return;
+
+                    page--;
+                }
+                var posTop = (page - 1) * $(window).height();
+
+                $html.animate({ scrollTop: posTop });
+
+            })
+        }
+        function assignPageValue(pagenum) {
+            page = pagenum;
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="#s1" onclick="assignPageValue(1)" style="font-size:2.0em; text-decoration:none;">🏠</a>
+        <a href="#s3" onclick="assignPageValue(3)" style="font-size:2.0em; text-decoration:none;">✈️</a>
+        <a href="#s4" onclick="assignPageValue(4)" style="font-size:2.0em; text-decoration:none;">📹</a>
+        <a href="#s5" onclick="assignPageValue(5)" style="font-size:2.0em; text-decoration:none;">🎓</a>
+        <a href="#s2" onclick="assignPageValue(2)" style="font-size:2.0em; text-decoration:none;">💬</a>
+        <a href="/" style="font-size:2.0em; text-decoration:none;">🔙</a>
+    </div>
+
+    <section class="section" id="s1">
+        <div class="myprofile">
+            <h1>나의 코딩 프로필</h1>
+        </div>
+        <div class="mycards" id="profile-list">
+            <div class="introducecard" action="/guestbook" method="POST">
+                <p class="wordframe">이름 : <span class="word" id="name" name="name">조우진</span></p>
+                <p class="wordframe">MBTI :<span class="word">INFJ</span></p>
+                <p class="wordframe">취미 :<span class="word">✈️여행</span></p>
+                <p class="wordframe">장점 :<span class="word">공감해주기</span></p>
+                <p class="wordframe">협업스타일 :<span class="word">경청하고 포용하기</span></p>
+                <p class="wordframe">블로그 주소 : <a href="https://velog.io/@dnwls3525">조우진 velog</a></p>
+                <p class="wordframe">생년월일 : <span class="word">🎂1995.03.03</span></p>
+                <p class="wordframe">전화번호 : <span class="word">📞+(82)10-5543-0461</span></p>
+                <p class="wordframe">Email : <span class="word">📧dnwls3525@gmail.com</span></p>
+                <!-- <p class="wordframe">협업 스타일 :</p> -->
+                <!-- <p class="wordframe">우리 팀의 약속 :</p> -->
+            </div>
+            <div class="imagecard">
+                <img src="/static/image/introduce.jpg" width="333px" height="444px">
+            </div>
+            <div class="title-comment">
+                <p>안녕하세요? 저는 <b>조우진</B>입니다.✨</p>
+                <p>2023년, 저는 <b>29살</b> 이에요!</p>
+                <p>저는 <b>컴퓨터공학</b>💻을 전공했고</p>
+                <p><b>2년 간</b> 식품회사 <b>하림</b>🐔에서 <b>IT직무</b>로 근무했으며</p>
+                <p><b>지금!</b> 저의 발전을 위해 <b>내일배움캠프</b>에서 다시 공부를 시작했습니다!</p>
+            </div>
+        </div>
+
+    </section>
+
+    </section>
+    <section class="section" id="s3">
+        <div class="myprofile">
+            <h1 style="text-align:center; ">새로움을 발굴하고</h1>
+        </div>
+        <div class="imagecards">
+            <div class="imagecard">
+                <img src="/static/image/tripimage1.jpg" width="444px" height="444px">
+            </div>
+            <div class="imagecard">
+                <img src="/static/image/tripimage3.jpg" width="888px" height="444px">
+            </div>
+            <div class="imagecard">
+                <img src="/static/image/tripimage2.jpg" width="333px" height="444px">
+            </div>
+        </div>
+    </section>
+    <section class="section" id="s4">
+        <div class="myprofile">
+            <h1 style="text-align:center; ">도전을 거듭해가며</h1>
+        </div>
+        <div class="video-wrapper">
+            <video width="313px" height="700px" class="videocard" muted autoplay loop>
+                <source src="static/video/tripvideo1.mp4" type="" video/mp4">
+            </video>
+            <video width="400px" height="700px" class="videocard" muted autoplay loop>
+                <source src="static/video/tripvideo3.mp4" type="" video/mp4>
+            </video>
+            <video width="400px" height="700px" class="videocard" muted autoplay loop>
+                <source src="static/video/tripvideo2.mp4" type="" video/mp4>
+            </video>
+            
+        </div>
+
+    </section>
+
+    <section class="section" id="s5">
+        <div class="myprofile">
+            <h1 style="text-align:center;">끊임없이 성장해나가겠습니다.</h1>
+        </div>
+        <div>
+            <div class="contents1">
+                <img class="graduate" src="/static/image/license1.jpg">
+                <img class="graduate" src="/static/image/license2.jpg">
+                <img class="graduate" src="/static/image/license3.jpg">
+
+
+
+            </div>
+            <div class="contents2">
+                <img class="graduate" src="/static/image/license4.jpg">
+                <img class="graduate" src="/static/image/license5.jpg">
+                <img class="graduate" src="/static/image/contest1.jpg">
+                <img class="graduate" src="/static/image/contest2.jpg">
+            </div>
+
+    </section>
+
+    <section class="section" id="s2">
+        <div class="myprofile">
+            <h1 style="text-align:center; ">방명록 작성하기</h1>
+        </div>
+        <img src="/static/image/title.svg" alt="title" style="width:500px; height:500px;">
+
+        <div class="container">
+            <div class="card" id="comment-list">
+                <ul class="list-group list-group-flush">
+                    <div class="row">
+                        <div class="col">
+                            <label for="list-group-item" class="commentId" id="editid-1">유저1</label>
+                        </div>
+                        <div class="col-2" style="margin-right: 30px; ">
+                            <input type="text" class="form-control" id="editpassword-1" value="" placeholder="PW">
+                        </div>
+                    </div>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-10">
+                                <input type="text" class="form-control-plaintext" id="editcomment-1" disabled
+                                    value="1번 방명록 내용 입니다.">
+                            </div>
+                            <div class="col-2">
+                                <!-- 내용변경 -->
+                                <div class="button-group">
+                                    <button id="edit-button-1" class="edit-button-static">✏️</button>
+                                    <button id="done-button-1" style="display: none;"
+                                        class="done-button-static">완료</button>
+                                    <button id="delete-button-1" class="delete-button-static">❌</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="list-group list-group-flush">
+                    <div class="row">
+                        <div class="col">
+                            <label for="list-group-item" class="commentId" id="editid-2">유저2</label>
+                        </div>
+                        <div class="col-2" style="margin-right: 30px;">
+                            <input type="text" class="form-control" id="editpassword-2" value="" placeholder="PW">
+                        </div>
+                    </div>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-10">
+                                <input type="text" class="form-control-plaintext" id="editcomment-2" disabled
+                                    value="2번 방명록 내용입니다.">
+                            </div>
+                            <div class="col-2">
+                                <!-- 내용변경 -->
+                                <div class="button-group">
+                                    <button id="edit-button-2" class="edit-button-static">✏️</button>
+                                    <button id="done-button-2" style="display: none;"
+                                        class="done-button-static">완료</button>
+                                    <button id="delete-button-2" class="delete-button-static">❌</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <nav aria-label="...">
+
+            </nav>
+        </div>
+        <div class="guestbook">
+            <div class="guestbook-header">
+                방명록 작성하기
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-2">
+                        <input class="form-control" id="id" placeholder="ID">
+                    </div>
+                    <div class="col-2">
+                        <input class="form-control" type="password" id="password" placeholder="PW">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10">
+                        <div class="mb-3">
+                            <textarea class="form-control" id="comment"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button onclick="save_comment()" type="button" id="writeButton">등록</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+</body>
+
+</html>
