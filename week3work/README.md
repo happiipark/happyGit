@@ -42,3 +42,26 @@
 
 ###  API 명세서  ###
 
+
+
+
+### Why: 과제 제출시에는 아래 질문을 고민해보고 답변을 함께 제출해주세요. ###
+1. 수정, 삭제 API의 request를 어떤 방식으로 사용하셨나요? (param, query, body)
+
+    -> 수정 : PathVariable,RequestBody, 삭제 : PathVariable
+
+2. 어떤 상황에 어떤 방식의 request를 써야하나요?
+
+    -> @RequestBody : HTTP BDOY에 담겨온 JSON 데이터를 JAVA의 객체로 전달 할 때
+
+    -> @RequestParam : 보내려는 데이터를URL 경로 마지막에 추가할때
+
+3. RESTful한 API를 설계했나요? 어떤 부분이 그런가요? 어떤 부분이 그렇지 않나요?
+
+    -> 강의를 따라 진행한거라 잘 못했다고 생각합니다.
+
+4. 적절한 관심사 분리를 적용하였나요? (Controller, Repository, Service)
+
+    -> 강의를 따라 진행해서 잘 못했다고 생각합니다.
+
+5. API 명세서 작성 가이드라인을 검색하여 직접 작성한 API 명세서와 비교해보세요!
