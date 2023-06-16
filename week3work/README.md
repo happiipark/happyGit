@@ -42,6 +42,7 @@
 
 ###  API 명세서  ###
 
+![image](https://github.com/happiipark/happyGit/assets/124240328/007364f1-b653-47f3-b2f2-50c7d7c87349)
 
 
 
@@ -65,3 +66,6 @@
     -> 강의를 따라 진행해서 잘 못했다고 생각합니다.
 
 5. API 명세서 작성 가이드라인을 검색하여 직접 작성한 API 명세서와 비교해보세요!
+
+
+https://happiipark.tistory.com/34 과정..
