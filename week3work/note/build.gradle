@@ -6,10 +6,11 @@ plugins {
 
 group = 'com.sparta'
 version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
 
-java {
-    sourceCompatibility = '17'
-}
+//java {
+//    sourceCompatibility = '17'
+//}
 
 configurations {
     compileOnly {
@@ -29,7 +30,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // MySQL
     implementation 'mysql:mysql-connector-java:8.0.28'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    // JPA 설정
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  //자동으로 Hibernate Core 가져옴
 }
 
 tasks.named('test') {
