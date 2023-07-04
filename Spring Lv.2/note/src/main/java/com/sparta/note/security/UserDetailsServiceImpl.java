@@ -1,13 +1,11 @@
 package com.sparta.note.security;
 
-import com.sparta.note.security.UserDetailsImpl;
+import com.sparta.note.entity.User;
+import com.sparta.note.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import com.sparta.note.entity.User;
-import com.sparta.note.repository.UserRepository;
 
 /**
  * 2. 인증정보 받아오기

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import com.sparta.note.entity.UserRoleEnum;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -27,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 public class JwtUtil {
     // Header KEY 값
     public static final String AUTHORIZATION_HEADER = "Authorization";
+    // 사용자 권한 키값. 사용자 권한도 토큰안에 넣어주기 때문에 그때 사용하는 키값
+    public static final String AUTHORIZATION_KEY = "auth";
     // Token 식별자
     public static final String BEARER_PREFIX = "Bearer ";
 
@@ -38,35 +41,36 @@ public class JwtUtil {
     // 로그 설정
     public static final Logger logger = LoggerFactory.getLogger("JWT 관련 로그");
 
-    @PostConstruct // 이 클래스가 다 만들어지면 수행! -> 생성자가 만들어질 때 수행
+    @PostConstruct
     public void init() {
         byte[] bytes = Base64.getDecoder().decode(secretKey);
         key = Keys.hmacShaKeyFor(bytes);
     }
 
     // header 토큰을 가져오기 Keys.hmacShaKeyFor(bytes);
-    public String resolveToken(HttpServletRequest request) {  // HttpServletRequest(요청정보)
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER); // 요청 정보에서 헤더값에서 토큰을 빼옴
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-            return bearerToken.substring(7); // 실제 토큰 값만 가져오기 위해 잘라넴
+            return bearerToken.substring(7);
         }
         return null;
     }
 
     // 토큰 생성
-    public String createToken(String username) {
+    public String createToken(String username, UserRoleEnum role) {
         Date date = new Date();
 
         // 토큰 만료시간
         // 60분
         long TOKEN_TIME = 60 * 60 * 1000L;
         return BEARER_PREFIX +
-                Jwts.builder()  // Jwts : jwt 토큰을 만드는 객체( Class ) -> build()를 통해서 생성
+                Jwts.builder()
                         .setSubject(username) // 사용자 식별자값(ID)
+                        .claim(AUTHORIZATION_KEY, role)
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME)) // 만료 시간
                         .setIssuedAt(date) // 발급일
                         .signWith(key, signatureAlgorithm) // 암호화 알고리즘
-                        .compact();  // 싫제 스트링 형태의 jwt 토큰을 응답 받게 된다!
+                        .compact();
     }
 
     // 토큰 검증

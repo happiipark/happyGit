@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.sparta.note.dto.AuthRequestDto;
 import com.sparta.note.entity.User;
+import com.sparta.note.entity.UserRoleEnum;
 import com.sparta.note.jwt.JwtUtil;
 import com.sparta.note.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,12 +21,13 @@ public class UserService {
     public void signup(AuthRequestDto requestDto) {
         String username = requestDto.getUsername();
         String password = passwordEncoder.encode(requestDto.getPassword());
+        UserRoleEnum role = requestDto.getRole();
 
         if (userRepository.findByUsername(username).isPresent()) {  // isPresent null인지 아닌지 확인
             throw new IllegalArgumentException("이미 존재하는 회원입니다.");
         }
 
-        User user = new User(username, password);
+        User user = new User(username, password, role);
         userRepository.save(user);
     }
 
@@ -33,12 +35,12 @@ public class UserService {
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
 
-        //사용자 확인
+        //사용자 확인 (username 이 없는경우)
         User user = userRepository.findByUsername(username).orElseThrow(  // orElseThrow : null 이 아니면 응답, null이면 exception 발생
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
 
-        //비밀번호 확인
+        //비밀번호 확인 (password 가 다른 경우)
         if(!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }

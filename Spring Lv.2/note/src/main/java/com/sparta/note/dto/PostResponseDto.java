@@ -5,16 +5,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 
 @Getter
 @Setter
-public class PostResponseDto {
+public class PostResponseDto extends ApiResponseDto {
     private Long id;
     private String title;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private String username;
+    private List<CommentResponseDto> comments;
 
     public PostResponseDto(Post post) {
         this.id = post.getPost_id();
@@ -23,5 +26,10 @@ public class PostResponseDto {
         this.createdAt = post.getCreatedAt();
         this.modifiedAt = post.getModifiedAt();
         this.username = post.getUser().getUsername();
+        this.comments = post.getComments().stream()
+            .map(CommentResponseDto::new)
+            .sorted(Comparator.comparing(CommentResponseDto::getCreatedAt).reversed()) // 작성날짜 내림차순 - reversed,
+                // getCreatedAt - 작성일자, comparing - 비교 연산자, sorted - 정렬
+            .toList();
     }
 }

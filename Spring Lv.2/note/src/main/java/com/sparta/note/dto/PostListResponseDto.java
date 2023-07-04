@@ -1,5 +1,6 @@
 package com.sparta.note.dto;
 
+import com.sparta.note.dto.PostResponseDto;
 import lombok.Getter;
 
 import java.util.List;
@@ -12,3 +13,4 @@ public class PostListResponseDto {
         this.postsList = postList;
     }
 }
+
