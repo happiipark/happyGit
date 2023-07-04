@@ -9,9 +9,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Getter
-@MappedSuperclass  //JAP Entity 클래스들이 해당 출생 Class를 상속할 경우 추상클래스에 선언한 멤버 변수를 column으로 인식
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Timestamped {
+public abstract class TimeStamped {
 
     @CreatedDate
     @Column(updatable = false)
