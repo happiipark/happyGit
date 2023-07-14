@@ -1,17 +1,10 @@
 package com.sparta.note.entity;
 
-import com.sparta.note.entity.Post;
-import com.sparta.note.entity.TimeStamped;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,7 +14,7 @@ public class Comment extends TimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long commentId;
 
     @Column(nullable = false)
     private String body;
@@ -33,6 +26,12 @@ public class Comment extends TimeStamped {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "likeCnt")
+    private long likeCnt;
+
+    @OneToMany(mappedBy = "comment", orphanRemoval = true)
+    private List<CommentLike> commentLikeList;
 
     public Comment(String body) {
         this.body = body;
@@ -48,5 +47,13 @@ public class Comment extends TimeStamped {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public void insertLikeCnt() {
+        this.likeCnt++;
+    }
+
+    public void deleteLikeCnt() {
+        this.likeCnt--;
     }
 }

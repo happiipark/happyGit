@@ -24,7 +24,7 @@ public class Post extends TimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long post_id;
+    private Long postId;
 
     @Column(nullable = false)
     private String title;
@@ -35,6 +35,12 @@ public class Post extends TimeStamped {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "likeCnt")
+    private long likeCnt;
+
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
+    private List<PostLike> postLikeList;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)  // cascade( 영속성 전이 ) : 연관 관계 같이 삭제
     private List<Comment> comments;
@@ -54,5 +60,13 @@ public class Post extends TimeStamped {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void insertLikeCnt() {
+        this.likeCnt++;
+    }
+
+    public void deleteLikeCnt() {
+        this.likeCnt--;
     }
 }
